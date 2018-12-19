@@ -85,7 +85,7 @@ class BlockChainDB(BaseDB):
 
     # добавление
     def insert(self, item):
-        self.hash_insert(item.__dict__)
+        self.hash_insert(item)
 
 
 class TransactionDB(BaseDB):
@@ -110,7 +110,7 @@ class TransactionDB(BaseDB):
         if not isinstance(transactions, list):
             transactions = [transactions]
         for transaction in transactions:
-            self.hash_insert(transaction.__dict__)
+            self.hash_insert(transaction)
 
 
 class AccountDB(BaseDB):
@@ -121,3 +121,7 @@ class AccountDB(BaseDB):
     def get_account(self):
         ac = self.read()
         return ac[0]
+
+
+
+
