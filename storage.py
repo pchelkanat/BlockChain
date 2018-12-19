@@ -49,7 +49,7 @@ class BaseDB():
     def clear(self):
         with open(self.filepath, 'w+') as f:
             f.write('')
-
+    """
     def hash_insert(self, item):
         exists = False
         for i in self.find_all():
@@ -58,7 +58,7 @@ class BaseDB():
                 break
         if not exists:
             self.write(item)
-
+    """
 
 class BlockChainDB(BaseDB):
 
@@ -84,9 +84,19 @@ class BlockChainDB(BaseDB):
         return one
 
     # добавление
+    """
     def insert(self, item):
         self.hash_insert(item)
+    """
 
+    def insert(self, item):
+        exists = False
+        for i in self.find_all():
+            if item['hash'] == i['hash']:
+                exists = True
+                break
+        if not exists:
+            self.write(item)
 
 class TransactionDB(BaseDB):
     """
@@ -106,11 +116,16 @@ class TransactionDB(BaseDB):
         return one
 
     # добавление
+    """
     def insert(self, transactions):
         if not isinstance(transactions, list):
             transactions = [transactions]
         for transaction in transactions:
             self.hash_insert(transaction)
+    """
+
+    def insert(self, item):
+        self.write(item)
 
 
 class AccountDB(BaseDB):
@@ -122,6 +137,14 @@ class AccountDB(BaseDB):
         ac = self.read()
         return ac[0]
 
+    """
+    def new_account(self):
+        private_key =
+        public_key =
+        address =
+        AccountDB().insert({'pubkey': public_key, 'address': address})
+        return private_key, public_key, address
 
+    """
 
 
